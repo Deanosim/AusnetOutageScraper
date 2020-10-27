@@ -1,10 +1,14 @@
 import json,requests
 
-# Currently unused, need to figure out how to pull directly from site and use that data.
-response = requests.get('https://www.outagetracker.com.au/home/GetOutageListData')
+# Pull Outage Data directly from Ausnet's Outage tracker site.
+OutageData = requests.get('https://www.outagetracker.com.au/home/GetOutageListData')
 
-with open('GetOutageListData.json') as OutageListData:
-    OutageData = json.load(OutageListData)
+# Fill in your town name here, could also use a varible to pull from external or another script.
+Town = ""
 
-for suburb in OutageData:
-    print(suburb['suburb'])
+input_dict = OutageData.json()
+output_dict = [x for x in input_dict if x['suburb'] == Town]
+
+output_json = json.dumps(output_dict)
+
+print(output_json)
