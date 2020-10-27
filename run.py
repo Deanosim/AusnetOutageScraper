@@ -1,4 +1,5 @@
 import json,requests
+from json2html import *
 
 # Pull Outage Data directly from Ausnet's Outage tracker site.
 OutageData = requests.get('https://www.outagetracker.com.au/home/GetOutageListData')
@@ -11,4 +12,5 @@ output_dict = [x for x in input_dict if x['suburb'] == Town]
 
 output_json = json.dumps(output_dict)
 
-print(output_json)
+#print(output_json)
+print(json2html.convert(json = output_json))
